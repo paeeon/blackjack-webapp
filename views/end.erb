@@ -1,0 +1,21 @@
+<div class="well">
+  <h5>Dealer's cards are: </h5>
+
+  <ul class="cards">
+    <% session[:dealer_cards].each do |card| %>
+      <li><%= card_image(card) %></li>
+    <% end %>
+    <p>Dealer's total hand value is <%= calculate_value_of_hand(session[:dealer_cards]) %>.</p>
+  </ul>
+
+</div>
+
+<div class="well">
+  <h5>Your cards are: </h5>
+  <ul class="cards">
+    <% session[:player_cards].each do |card| %>
+      <li><%= card_image(card) %></li>
+    <% end %>
+  </ul>
+  <p>Your total hand value is <%= calculate_value_of_hand(session[:player_cards]) %>.</p>
+</div>

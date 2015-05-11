@@ -1,9 +1,54 @@
-<h4>Hi <%= session[:player_name] %>! </h4>
+<div class="well">
+  <h5>Dealer's cards are: </h5>
+  <ul class="cards">
+    <%= card_image(session[:dealer_cards].first) %>
+    <% if session[:dealer_cards].length == 2 %>
+      <p>…And <%= (session[:dealer_cards].length - 1).to_s %> other card.</p>
+    <% else %>
+      <p>…And <%= (session[:dealer_cards].length - 1).to_s %> other cards.</p>
+    <% end %>
+  </ul>
 
-<p>Your cards are: </p>
-
-<ul>
-  <% session[:player_cards].each do |card| %>
-    <li><%= card.to_s %></li>
+  <% if (session[:player_status] == "finished") && (session[:dealer_status] == "finished") && !@win && !@lose %>
+    <% if @dealer_status %>
+      <h4><%= @dealer_status %></h4>
+    <% end %>
+    <form action="/end">
+      <button type="submit" class="btn btn-primary">Compare and reveal hands</button>
+    </form>
+  <% elsif session[:player_status] == "finished" && !@win && !@lose %>
+    <% if @dealer_status %>
+      <h4><%= @dealer_status %></h4>
+    <% end %>
+    <form action="/game/dealer/move" method="post">
+      <button type="submit" class="btn btn-default">See the dealer's next move</button>
+    </form>
   <% end %>
-</ul>
+
+</div>
+
+<div class="well">
+  <h5>Your cards are: </h5>
+  <ul class="cards">
+    <% session[:player_cards].each do |card| %>
+      <li><%= card_image(card) %></li>
+    <% end %>
+  </ul>
+  <p>Your total hand value is <%= calculate_value_of_hand(session[:player_cards]) %>.</p>
+
+  <% if @show_hit_or_stay_buttons %>
+    <h4>What would you like to do?</h4>
+    <ul class="action-buttons">
+      <li>
+        <form action="/game/player/hit" method="post">
+          <button type="submit" class="btn btn-default">Hit</button>
+        </form>
+      </li>
+      <li>
+        <form action="/game/player/stay" method="post">
+          <button type="submit" class="btn btn-default">Stay</button>
+        </form>
+      </li>
+    </ul>
+  <% end %>
+</div>

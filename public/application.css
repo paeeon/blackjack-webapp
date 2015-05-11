@@ -1,3 +1,21 @@
 body { 
   padding-top: 70px; 
 }
+
+ul.action-buttons, ul.cards {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.action-buttons li, ul.cards li {
+  display: inline-block;
+}
+
+ul.cards li {
+  margin-right:1em
+}
+
+.cards img {
+  height: 12em;
+}
