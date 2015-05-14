@@ -1,0 +1,9 @@
+<h4>How much money would you like to bet this round?</h4>
+<p>You have $<%= session[:cash_remaining] %>.</p>
+<form action="/bet" method="post">
+  <div class="form-group">
+    <input type="text" class="form-control" name="bet_amount"/>
+    <br>
+    <button type="submit" class="btn btn-primary">Start game!</button>
+  </div>
+</form>

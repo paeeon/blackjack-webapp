@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My First App</title>
+    <title>Blackjack</title>
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/application.js"></script>
     <link rel="stylesheet" href="/application.css">
   </head>
   <body>
@@ -16,31 +18,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Blackjack</a>
+          <a class="navbar-brand" href="/new_player">Blackjack</a>
         </div>
+        <% if !@new_player %>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="bet-score">Currently betting: $<%= session[:bet_amount] %></li>
+          <li class="bet-score"><%= session[:player_name] %>'s cash total: $<%= session[:cash_remaining] %></li>
+          <li><%= session[:player_name] %>'s score: <%= session[:scoreboard][:player] %></li>
+          <li>Dealer's score: <%= session[:scoreboard][:dealer] %></li>
+        </ul>
+        <% end %>
       </div>
     </nav>
 
     <div class="container">
-      <%if @winner == session[:player_name] %>
-        <div class="alert alert-success"><%= "#{@winner.capitalize} wins! <a href='/game' class='alert-link'>Play again?</a>" %></div>
-      <% elsif @winner == "dealer" %>
-        <div class="alert alert-danger"><%= "Awww, #{@winner.capitalize} wins... <a href='/game' class='alert-link'>Play again?</a>" %></div>
-      <% elsif @winner == "tie" %>
-        <div class="alert alert-info"><%= "Hey, it was a tie! <a href='/game' class='alert-link'>Play again?</a>" %></div>
-      <% end %>
 
-      <%if @win %>
-        <div class="alert alert-success"><%=@win%></div>
-      <% end %>
-      <%if @lose %>
-        <div class="alert alert-danger"><%=@lose%></div>
+      <%if @success %>
+        <div class="alert alert-success"><%=@success%></div>
       <% end %>
       <%if @error %>
         <div class="alert alert-danger"><%=@error%></div>
-      <% end %>
-      <%if @info %>
-        <div class="alert alert-info"><%=@info%></div>
       <% end %>
 
         <%= yield %>

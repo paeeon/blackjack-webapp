@@ -19,3 +19,16 @@ ul.cards li {
 .cards img {
   height: 12em;
 }
+
+ul.navbar-nav {
+  margin-top: 1em;
+  color: #999;
+}
+
+ul.navbar-nav li {
+  margin-right: 2em;
+}
+
+li.bet-score {
+  color: #333;
+}
